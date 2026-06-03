@@ -83,20 +83,30 @@ public class KeyHandler implements KeyListener {
  if (code == KeyEvent.VK_ENTER) {
  switch (gp.ui.commandNum) {
  case 0: // New Game
+ gp.resetGame(true);
  gp.setupGame();
+ // Delete old save so Continue won't load stale data
+ new java.io.File("progress.dat").delete();
  gp.gameState = gp.prologueState;
  gp.ui.prologueLine = 0;
  gp.ui.prologueTimer = 0;
  break;
  case 1: // Continue
  gp.setupGame();
+ if (gp.loadProgress()) {
  gp.gameState = gp.playState;
  gp.playMusic(0);
- // Show secret ending toast if applicable
  if (gp.player.hasDefeatedShona && !gp.player.hasFoundSheenaMemory) {
  gp.ui.showToast("A secret ending awaits somewhere in the map...");
  } else if (gp.player.hasFoundSheenaMemory && !gp.player.hasDefeatedShona) {
  gp.ui.showToast("Congratulations! You unlocked the secret ending!");
+ }
+ } else {
+ // No save file, start fresh
+ gp.ui.showToast("No saved progress found. Starting new game.");
+ gp.gameState = gp.prologueState;
+ gp.ui.prologueLine = 0;
+ gp.ui.prologueTimer = 0;
  }
  break;
  case 2: // How to Play
@@ -188,6 +198,7 @@ public class KeyHandler implements KeyListener {
  if (code == KeyEvent.VK_ENTER) {
  switch (gp.ui.commandNum) {
  case 4: // End Game
+ gp.saveProgress();
  gp.gameState = gp.titleState;
  gp.resetGame(true);
  gp.stopMusic();
@@ -337,13 +348,15 @@ public class KeyHandler implements KeyListener {
  gp.ui.addMessage("A secret awaits... explore the hidden forest maze.");
  }
  }
- // Return to title after saving
+ // Save progress and return to title
+ gp.saveProgress();
  gp.resetGame(false);
  gp.stopMusic();
  gp.gameState = gp.titleState;
  gp.ui.commandNum = 0;
  }
  if (code == KeyEvent.VK_ESCAPE) {
+ gp.saveProgress();
  gp.resetGame(false);
  gp.stopMusic();
  gp.gameState = gp.titleState;

@@ -142,6 +142,8 @@ public class GamePanel extends JPanel implements Runnable {
  quizManager.resetQuiz();
  learningManager = new LearningManager();
  currentEnding = "NORMAL_ENDING";
+ // Reload the map to reset any opened gates/doors
+ tileM.loadMap("/maps/worldmap.txt", 0);
  }
  }
 
@@ -284,4 +286,61 @@ public class GamePanel extends JPanel implements Runnable {
  }
  public void stopMusic() { music.stop(); }
  public void playSE(int i){ se.setFile(i); se.play(); }
+
+ // Save/Load progress for Continue feature
+ public void saveProgress() {
+ try {
+ java.io.PrintWriter pw = new java.io.PrintWriter(new java.io.FileWriter("progress.dat"));
+ pw.println(player.knowledgePoints);
+ pw.println(player.scrollsCompleted);
+ pw.println(player.enemiesDefeated);
+ pw.println(player.level);
+ pw.println(player.exp);
+ pw.println(player.maxLife);
+ pw.println(player.life);
+ pw.println(player.hasDefeatedShona);
+ pw.println(player.hasFoundSheenaMemory);
+ pw.println(player.worldX);
+ pw.println(player.worldY);
+ pw.println(player.strength);
+ pw.println(player.dexterity);
+ pw.close();
+ } catch (Exception e) { /* silent fail */ }
+ }
+
+ public boolean loadProgress() {
+ java.io.File f = new java.io.File("progress.dat");
+ if (!f.exists()) return false;
+ try {
+ java.io.BufferedReader br = new java.io.BufferedReader(new java.io.FileReader(f));
+ player.knowledgePoints = Integer.parseInt(br.readLine().trim());
+ player.scrollsCompleted = Integer.parseInt(br.readLine().trim());
+ player.enemiesDefeated = Integer.parseInt(br.readLine().trim());
+ player.level = Integer.parseInt(br.readLine().trim());
+ player.exp = Integer.parseInt(br.readLine().trim());
+ player.maxLife = Integer.parseInt(br.readLine().trim());
+ player.life = Integer.parseInt(br.readLine().trim());
+ player.hasDefeatedShona = Boolean.parseBoolean(br.readLine().trim());
+ player.hasFoundSheenaMemory = Boolean.parseBoolean(br.readLine().trim());
+ player.worldX = Integer.parseInt(br.readLine().trim());
+ player.worldY = Integer.parseInt(br.readLine().trim());
+ player.strength = Integer.parseInt(br.readLine().trim());
+ player.dexterity = Integer.parseInt(br.readLine().trim());
+ br.close();
+
+ // If player already had castle access, reopen gate
+ if (player.knowledgePoints >= 70 && player.scrollsCompleted >= 7) {
+ for (int r = 10; r <= 12; r++) {
+ tileM.mapTileNum[0][24][r] = 4;
+ tileM.mapTileNum[0][25][r] = 4;
+ tileM.mapTileNum[0][26][r] = 4;
+ }
+ }
+ // Remove defeated monsters
+ for (int i = 0; i < player.enemiesDefeated && i < 5; i++) {
+ monster[0][i] = null;
+ }
+ return true;
+ } catch (Exception e) { return false; }
+ }
 }
