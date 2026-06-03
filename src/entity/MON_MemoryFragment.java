@@ -6,6 +6,10 @@ import main.GamePanel;
 /**
  * MON_MemoryFragment - quiz enemy. Touching triggers a quiz battle.
  * Demonstrates: inheritance, polymorphism, OOP
+ *
+ * Created by: Nathanael
+ * Tested by: Habib
+ * Purpose: Enemy entity that initiates quiz battles when player interacts with it.
  */
 public class MON_MemoryFragment extends Entity {
 

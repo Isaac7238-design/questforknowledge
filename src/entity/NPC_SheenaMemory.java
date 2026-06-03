@@ -6,6 +6,10 @@ import main.GamePanel;
 /**
  * NPC_SheenaMemory - Shona's sister, hidden ghost NPC.
  * Finding her enables the SECRET_ENDING path.
+ *
+ * Created by: Lee Yun Zhan
+ * Tested by: Nathanael
+ * Purpose: Secret NPC hidden in the forest maze that unlocks the forgive/secret ending.
  */
 public class NPC_SheenaMemory extends Entity {
 
@@ -29,14 +33,14 @@ public class NPC_SheenaMemory extends Entity {
         solidAreaDefaultX = 8; solidAreaDefaultY = 16;
     }
     public void getImage() {
-        up1    = setup("/npc/sheena_down_1",    gp.tileSize, gp.tileSize);
-        up2    = setup("/npc/sheena_down_2",    gp.tileSize, gp.tileSize);
+        up1    = setup("/npc/sheena_up_1",    gp.tileSize, gp.tileSize);
+        up2    = setup("/npc/sheena_up_2",    gp.tileSize, gp.tileSize);
         down1  = setup("/npc/sheena_down_1",  gp.tileSize, gp.tileSize);
         down2  = setup("/npc/sheena_down_2",  gp.tileSize, gp.tileSize);
-        left1  = setup("/npc/sheena_down_1",  gp.tileSize, gp.tileSize);
-        left2  = setup("/npc/sheena_down_2",  gp.tileSize, gp.tileSize);
-        right1 = setup("/npc/sheena_down_1", gp.tileSize, gp.tileSize);
-        right2 = setup("/npc/sheena_down_2", gp.tileSize, gp.tileSize);
+        left1  = setup("/npc/sheena_left_1",  gp.tileSize, gp.tileSize);
+        left2  = setup("/npc/sheena_left_2",  gp.tileSize, gp.tileSize);
+        right1 = setup("/npc/sheena_right_1", gp.tileSize, gp.tileSize);
+        right2 = setup("/npc/sheena_right_2", gp.tileSize, gp.tileSize);
     }
 
     public void setDialogue() {
@@ -54,7 +58,8 @@ public class NPC_SheenaMemory extends Entity {
         if (!activated) {
             activated = true;
             gp.player.hasFoundSheenaMemory = true;
-            gp.ui.addMessage("You found Sheena's hidden memory!");
+            gp.ui.showToast("Congratulations! You unlocked the secret ending!");
+            gp.ui.showToast("You can now FORGIVE Miss Shona after battling her.");
         }
         startDialogue(this, 0);
     }

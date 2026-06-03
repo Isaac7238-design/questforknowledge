@@ -6,6 +6,10 @@ import main.GamePanel;
 /**
  * BOSS_Shona - final boss. Extends MON_MemoryFragment.
  * Defeating her triggers the ending choice.
+ *
+ * Created by: Nathanael
+ * Tested by: Habib
+ * Purpose: Final boss entity with extended quiz battle and ending trigger.
  */
 public class BOSS_Shona extends MON_MemoryFragment {
 

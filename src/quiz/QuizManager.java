@@ -7,6 +7,10 @@ import java.util.ArrayList;
  * QuizManager - ALL questions are Multiple Choice (A/B/C/D).
  * Player presses A, B, C, or D to answer. No typing needed.
  * Implements QuizPlayable.
+ *
+ * Created by: Nathanael
+ * Tested by: Habib
+ * Purpose: Prepare 20 quiz questions, manage quiz sessions, score calculation, and quiz UI rendering.
  */
 public class QuizManager implements QuizPlayable {
 

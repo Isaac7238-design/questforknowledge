@@ -6,6 +6,10 @@ import javax.swing.JFrame;
  * Main - entry point for Lucienne: Quest for Quality Education
  * Structure based on RyiSnow's Blue Boy Adventure tutorial.
  * Course: TMF2954 Java Programming | Theme: SDG 4 - Quality Education
+ *
+ * Created by: Aezekiel
+ * Tested by: Habib
+ * Purpose: Application entry point, creates the game window and starts the game loop.
  */
 public class Main {
 

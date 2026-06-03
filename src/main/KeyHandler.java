@@ -6,6 +6,10 @@ import java.awt.event.KeyListener;
 /**
  * KeyHandler - handles all keyboard input.
  * RyiSnow Blue Boy Adventure style: routes key events by game state.
+ *
+ * Created by: Aezekiel
+ * Tested by: Habib
+ * Purpose: Route keyboard input to appropriate game state handlers (play, quiz, menu, etc).
  */
 public class KeyHandler implements KeyListener {
 
@@ -75,8 +79,8 @@ public class KeyHandler implements KeyListener {
 
         // clamp based on titleScreenState
         if (gp.ui.titleScreenState == 0) {
-            if (gp.ui.commandNum < 0) gp.ui.commandNum = 3;
-            if (gp.ui.commandNum > 3) gp.ui.commandNum = 0;
+            if (gp.ui.commandNum < 0) gp.ui.commandNum = 4;
+            if (gp.ui.commandNum > 4) gp.ui.commandNum = 0;
             if (code == KeyEvent.VK_ENTER) {
                 switch (gp.ui.commandNum) {
                     case 0: // New Game
@@ -85,15 +89,26 @@ public class KeyHandler implements KeyListener {
                         gp.ui.prologueLine = 0;
                         gp.ui.prologueTimer = 0;
                         break;
-                    case 1: // How to Play
+                    case 1: // Continue
+                        gp.setupGame();
+                        gp.gameState = gp.playState;
+                        gp.playMusic(0);
+                        // Show secret ending toast if applicable
+                        if (gp.player.hasDefeatedShona && !gp.player.hasFoundSheenaMemory) {
+                            gp.ui.showToast("A secret ending awaits somewhere in the map...");
+                        } else if (gp.player.hasFoundSheenaMemory && !gp.player.hasDefeatedShona) {
+                            gp.ui.showToast("Congratulations! You unlocked the secret ending!");
+                        }
+                        break;
+                    case 2: // How to Play
                         gp.ui.titleScreenState = 1;
                         gp.ui.commandNum = 0;
                         break;
-                    case 2: // View Scores
+                    case 3: // View Scores
                         gp.ui.loadScoreData();
                         gp.gameState = gp.scoreState;
                         break;
-                    case 3: // Quit
+                    case 4: // Quit
                         System.exit(0);
                         break;
                 }
@@ -260,6 +275,7 @@ public class KeyHandler implements KeyListener {
                 gp.monster[gp.currentMap][gp.currentEnemyIndex].checkDrop();
                 gp.player.enemiesDefeated++;
                 gp.player.checkBadgeConditions();
+                gp.player.checkAllFragmentsDefeated();
             }
         }
         if (gp.player.hasMemoryCharm) {
@@ -272,15 +288,14 @@ public class KeyHandler implements KeyListener {
 
     private void learningState(int code) {
         if (code == KeyEvent.VK_ENTER || code == KeyEvent.VK_SPACE) {
-            // Complete scroll
+            // Complete scroll - gives XP only, NOT KP (KP comes from battles)
             gp.learningManager.completePage(gp.currentScrollIndex);
             gp.player.scrollsCompleted++;
-            gp.player.knowledgePoints += 10;
             gp.player.exp += 15;
             gp.player.checkLevelUp();
             gp.player.checkBadgeConditions();
             gp.playSE(3);
-            gp.ui.addMessage("Scroll complete! +10 KP");
+            gp.ui.addMessage("Scroll complete! +15 XP");
             gp.gameState = gp.playState;
         }
         if (code == KeyEvent.VK_ESCAPE) {
@@ -300,10 +315,11 @@ public class KeyHandler implements KeyListener {
     private void endingChoiceState(int code) {
         if (code == KeyEvent.VK_W || code == KeyEvent.VK_UP)   gp.ui.commandNum--;
         if (code == KeyEvent.VK_S || code == KeyEvent.VK_DOWN) gp.ui.commandNum++;
-        if (gp.ui.commandNum < 0) gp.ui.commandNum = 2;
-        if (gp.ui.commandNum > 2) gp.ui.commandNum = 0;
+        String[] choices = gp.ui.getAvailableEndingChoices();
+        int maxCmd = choices.length - 1;
+        if (gp.ui.commandNum < 0) gp.ui.commandNum = maxCmd;
+        if (gp.ui.commandNum > maxCmd) gp.ui.commandNum = 0;
         if (code == KeyEvent.VK_ENTER) {
-            String[] choices = {"SHARE", "KEEP", "FORGIVE"};
             gp.player.finalChoice = choices[gp.ui.commandNum];
             gp.currentEnding = gp.endingManager.determineEnding(gp.player);
             if ("TRUE_ENDING".equals(gp.currentEnding) || "SECRET_ENDING".equals(gp.currentEnding))
@@ -315,6 +331,13 @@ public class KeyHandler implements KeyListener {
     private void endingState(int code) {
         if (code == KeyEvent.VK_ENTER) {
             gp.ui.saveCurrentScore();
+            // Show secret ending hint for good/true endings
+            String ending = gp.currentEnding;
+            if ("GOOD_ENDING".equals(ending) || "TRUE_ENDING".equals(ending)) {
+                if (!gp.player.hasFoundSheenaMemory) {
+                    gp.ui.addMessage("A secret awaits... explore the hidden forest maze.");
+                }
+            }
             // Return to title after saving
             gp.resetGame(false);
             gp.stopMusic();

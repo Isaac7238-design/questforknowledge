@@ -3,6 +3,10 @@ package learning;
 /**
  * LearningPage - one SDG 4 learning scroll/page.
  * Demonstrates: encapsulation, OOP
+ *
+ * Created by: Lee Yun Zhan
+ * Tested by: Nathanael
+ * Purpose: Represent a single SDG 4 scroll with title, content, and completion state.
  */
 public class LearningPage {
 

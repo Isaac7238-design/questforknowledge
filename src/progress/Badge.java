@@ -3,6 +3,10 @@ package progress;
 /**
  * Badge - an achievement the player can earn.
  * Implements Rewardable. Demonstrates: encapsulation, interfaces.
+ *
+ * Created by: Habib
+ * Tested by: Aezekiel
+ * Purpose: Represent unlockable achievements/badges the player earns for milestones.
  */
 public class Badge implements Rewardable {
 

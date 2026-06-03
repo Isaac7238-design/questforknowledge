@@ -13,6 +13,10 @@ import main.UtilityTool;
  * Entity - base class for Player, NPCs, Monsters, and Objects.
  * EXACT structure from RyiSnow Blue Boy Adventure.
  * Demonstrates: abstraction, inheritance
+ *
+ * Created by: Aezekiel
+ * Tested by: Habib
+ * Purpose: Base class providing shared properties and methods for all game entities.
  */
 public class Entity {
 

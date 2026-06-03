@@ -10,6 +10,10 @@ import progress.*;
  * UI - draws all screens: title, HUD, dialogue, quiz, shop, endings, scores.
  * RyiSnow Blue Boy Adventure drawToTempScreen pattern.
  * Demonstrates: OOP, file handling (score display)
+ *
+ * Created by: Aezekiel
+ * Tested by: Habib
+ * Purpose: Render all game UI elements including HUD, menus, dialogues, and notifications.
  */
 public class UI {
 
@@ -35,6 +39,11 @@ public class UI {
 
     // Level up flash
     public int levelUpFlashCounter = 0;
+
+    // Center toast notification
+    public String toastMessage = "";
+    public int toastCounter = 0;
+    private ArrayList<String> toastQueue = new ArrayList<>();
 
     // Transition counter
     int counter = 0;
@@ -83,6 +92,15 @@ public class UI {
         "Keep the Knowledge Crystal safe",
         "Try to understand and forgive Shona"
     };
+
+    public String[] getAvailableEndingChoices() {
+        if (gp.player.hasFoundSheenaMemory) return ENDING_CHOICES;
+        return new String[]{"SHARE", "KEEP"};
+    }
+    public String[] getAvailableEndingDescs() {
+        if (gp.player.hasFoundSheenaMemory) return ENDING_DESCS;
+        return new String[]{"Share knowledge with everyone", "Keep the Knowledge Crystal safe"};
+    }
 
     // Score / ending helpers
     ScoreStorage  scoreStorage  = new ScoreStorage();
@@ -173,12 +191,12 @@ public class UI {
 
         // Menu items
         g2.setFont(maruMonica.deriveFont(Font.BOLD, 18f));
-        String[] opts = {"NEW GAME","HOW TO PLAY","VIEW SCORES","QUIT"};
+        String[] opts = {"NEW GAME","CONTINUE","HOW TO PLAY","VIEW SCORES","QUIT"};
         int startY = 230;
         for (int i = 0; i < opts.length; i++) {
             g2.setColor(commandNum == i ? new Color(255,215,0) : Color.white);
-            g2.drawString(opts[i], getXforCenteredText(opts[i]), startY + i*40);
-            if (commandNum == i) g2.drawString(">", getXforCenteredText(opts[i]) - 30, startY + i*40);
+            g2.drawString(opts[i], getXforCenteredText(opts[i]), startY + i*35);
+            if (commandNum == i) g2.drawString(">", getXforCenteredText(opts[i]) - 30, startY + i*35);
         }
 
         // High score at bottom
@@ -247,71 +265,72 @@ public class UI {
         g2.drawString(footer, getXforCenteredText(footer), gp.screenHeight - 30);
     }
         public void drawPlayerLife() {
-        int x = gp.tileSize/2, y = gp.tileSize/2;
-        // Draw max life (blank hearts via rectangles)
+        int x = 8, y = 8;
+        // Draw hearts
         for (int i = 0; i < gp.player.maxLife/2; i++) {
-            g2.setColor(new Color(100,0,0)); g2.fillRect(x+i*22, y, 18,16);
-            g2.setColor(Color.RED);          g2.drawRect(x+i*22, y, 18,16);
+            g2.setColor(new Color(100,0,0)); g2.fillRect(x+i*18, y, 14,12);
+            g2.setColor(Color.RED);          g2.drawRect(x+i*18, y, 14,12);
         }
-        // Draw current life (filled hearts)
         for (int i = 0; i < gp.player.life/2; i++) {
-            g2.setColor(Color.RED); g2.fillRect(x+i*22, y, 18,16);
+            g2.setColor(Color.RED); g2.fillRect(x+i*18, y, 14,12);
         }
         if (gp.player.life % 2 == 1) {
             int i = gp.player.life/2;
-            g2.setColor(Color.RED); g2.fillRect(x+i*22, y, 9,16);
+            g2.setColor(Color.RED); g2.fillRect(x+i*18, y, 7,12);
         }
-        // Stats row
-        int sy = y + 22;
-        g2.setFont(maruMonica.deriveFont(12f));
-        g2.setColor(new Color(0,0,0,160));
-        g2.fillRoundRect(x-2, sy-12, 220, 16, 4, 4);
+        // Stats text
+        int sy = y + 16;
+        g2.setFont(maruMonica.deriveFont(11f));
+        g2.setColor(new Color(0,0,0,180));
+        g2.fillRoundRect(x-2, sy, 180, 14, 4, 4);
         g2.setColor(new Color(255,220,100));
-        g2.drawString("Lv:" + gp.player.level
-            + " XP:" + gp.player.exp
-            + " KP:" + gp.player.knowledgePoints
-            + " Sc:" + gp.player.scrollsCompleted, x+2, sy);
+        g2.drawString("Lv:" + gp.player.level + " XP:" + gp.player.exp
+            + " KP:" + gp.player.knowledgePoints + " Sc:" + gp.player.scrollsCompleted, x+2, sy+11);
 
-        // KP Progress bar toward castle (70 KP goal)
-        int barX = x, barY = sy + 8;
-        int barW = 160, barH = 8;
+        // KP Progress bar (compact)
+        int barY = sy + 18;
+        int barW = 120, barH = 6;
         int kpProgress = Math.min(gp.player.knowledgePoints, 70);
         int filledW = (int)((kpProgress / 70.0) * barW);
-        g2.setColor(new Color(0,0,0,140));
-        g2.fillRoundRect(barX, barY, barW, barH, 4, 4);
+        g2.setColor(new Color(0,0,0,160));
+        g2.fillRoundRect(x, barY, barW, barH, 3, 3);
         g2.setColor(kpProgress >= 70 ? new Color(100,255,100) : new Color(80,180,255));
-        g2.fillRoundRect(barX, barY, filledW, barH, 4, 4);
-        g2.setColor(new Color(200,200,200));
+        g2.fillRoundRect(x, barY, filledW, barH, 3, 3);
         g2.setFont(maruMonica.deriveFont(9f));
-        g2.drawString(kpProgress + "/70 KP", barX + barW + 5, barY + 7);
+        g2.setColor(new Color(200,200,200));
+        g2.drawString(kpProgress + "/70", x + barW + 4, barY + 6);
 
-        // Scroll collection indicator
-        int scrollY = barY + 14;
-        g2.setFont(maruMonica.deriveFont(10f));
+        // Scroll dots (compact)
+        int scrollY = barY + 10;
+        g2.setFont(maruMonica.deriveFont(9f));
         g2.setColor(new Color(255,220,100));
-        String scrollStr = "";
-        for (int i = 0; i < 10; i++) {
-            scrollStr += (i < gp.player.scrollsCompleted) ? "\u25A0" : "\u25A1";
-        }
-        g2.drawString("Scrolls:" + scrollStr, barX, scrollY);
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < 10; i++) sb.append(i < gp.player.scrollsCompleted ? "\u25CF" : "\u25CB");
+        g2.drawString(sb.toString(), x, scrollY + 8);
     }
 
     public void drawMessage() {
-        int mx = gp.tileSize, my = gp.tileSize*4;
-        g2.setFont(maruMonica.deriveFont(Font.BOLD, 16f));
+        int mx = 10, my = gp.screenHeight / 2 - 60;
+        g2.setFont(maruMonica.deriveFont(Font.BOLD, 15f));
         for (int i = 0; i < message.size(); i++) {
             if (message.get(i) != null) {
                 int counter = messageCounter.get(i);
-                // Floating effect: move up over time
-                int floatOffset = counter / 4;
-                float alpha = Math.max(0, 1f - (counter / 150f));
+                float alpha = Math.max(0, 1f - (counter / 480f));
+                int floatOffset = counter / 12;
+
+                int textW = g2.getFontMetrics().stringWidth(message.get(i));
+                g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha * 0.7f));
+                g2.setColor(new Color(0, 0, 0));
+                g2.fillRoundRect(mx - 4, my - floatOffset - 14, textW + 12, 20, 6, 6);
+
                 g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha));
-                g2.setColor(Color.black);  g2.drawString(message.get(i), mx+2, my - floatOffset +2);
-                g2.setColor(Color.white);  g2.drawString(message.get(i), mx, my - floatOffset);
+                g2.setColor(new Color(255, 255, 100));
+                g2.drawString(message.get(i), mx + 2, my - floatOffset);
+
                 g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
                 messageCounter.set(i, counter + 1);
-                my += 30;
-                if (counter > 150) { message.remove(i); messageCounter.remove(i); i--; }
+                my += 26;
+                if (counter > 480) { message.remove(i); messageCounter.remove(i); i--; }
             }
         }
     }
@@ -324,6 +343,36 @@ public class UI {
             g2.setColor(new Color(255, 255, 255, alpha));
             g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
             levelUpFlashCounter--;
+        }
+        // Center toast notification
+        if (toastCounter > 0) {
+            float alpha = Math.min(1f, toastCounter / 30f); // fade in first 0.5s
+            if (toastCounter < 60) alpha = toastCounter / 60f; // fade out last 1s
+            g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha * 0.85f));
+            g2.setFont(maruMonica.deriveFont(Font.BOLD, 16f));
+            int tw = g2.getFontMetrics().stringWidth(toastMessage);
+            int tx = gp.screenWidth / 2 - tw / 2;
+            int ty = gp.screenHeight / 2;
+            g2.setColor(new Color(0, 0, 0));
+            g2.fillRoundRect(tx - 15, ty - 20, tw + 30, 32, 12, 12);
+            g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha));
+            g2.setColor(new Color(255, 215, 0));
+            g2.drawString(toastMessage, tx, ty);
+            g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
+            toastCounter--;
+            if (toastCounter <= 0 && !toastQueue.isEmpty()) {
+                toastMessage = toastQueue.remove(0);
+                toastCounter = 240;
+            }
+        }
+    }
+
+    public void showToast(String msg) {
+        if (toastCounter > 0) {
+            toastQueue.add(msg);
+        } else {
+            toastMessage = msg;
+            toastCounter = 240;
         }
     }
 
@@ -511,13 +560,18 @@ public class UI {
         g2.setFont(maruMonica.deriveFont(14f)); g2.setColor(new Color(200,200,255));
         g2.drawString("What will you do with it?", getXforCenteredText("What will you do with it?"), 92);
 
+        String[] choices = getAvailableEndingChoices();
+        String[] descs = getAvailableEndingDescs();
+        int maxCmd = choices.length - 1;
+        if (commandNum > maxCmd) commandNum = maxCmd;
+
         int sy = 140;
-        for (int i = 0; i < ENDING_CHOICES.length; i++) {
+        for (int i = 0; i < choices.length; i++) {
             g2.setColor(commandNum==i ? new Color(255,215,0) : Color.white);
             g2.setFont(commandNum==i ? maruMonica.deriveFont(Font.BOLD,16f) : maruMonica.deriveFont(15f));
-            g2.drawString((commandNum==i?"> ":"  ") + ENDING_CHOICES[i], getXforCenteredText(ENDING_CHOICES[i])-10, sy+i*50);
+            g2.drawString((commandNum==i?"> ":"  ") + choices[i], getXforCenteredText(choices[i])-10, sy+i*50);
             g2.setFont(maruMonica.deriveFont(12f)); g2.setColor(new Color(180,180,180));
-            g2.drawString(ENDING_DESCS[i], getXforCenteredText(ENDING_DESCS[i]), sy+i*50+18);
+            g2.drawString(descs[i], getXforCenteredText(descs[i]), sy+i*50+18);
         }
         g2.setFont(maruMonica.deriveFont(12f)); g2.setColor(new Color(150,150,150));
         g2.drawString("W/S=choose  Enter=confirm", getXforCenteredText("W/S=choose  Enter=confirm"), gp.screenHeight-30);

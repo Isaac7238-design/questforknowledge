@@ -26,3 +26,17 @@ Jeff Lionhardt,100,200,3,10,SECRET_ENDING,Knowledge Seeker|Memory Breaker|Castle
 Jeff Lionhardt,100,200,3,10,SECRET_ENDING,Knowledge Seeker|Memory Breaker|Castle Scholar|SDG Hero|Light of Lucienne
 Jeff Lionhardt,100,180,9,10,GOOD_ENDING,Knowledge Seeker|Castle Scholar|SDG Hero
 Jeff Lionhardt,100,170,8,10,GOOD_ENDING,Knowledge Seeker|Castle Scholar|SDG Hero
+Jeff Lionhardt,100,150,9,11,GOOD_ENDING,Knowledge Seeker|Castle Scholar|SDG Hero
+Jeff Lionhardt,100,180,9,10,SECRET_ENDING,Knowledge Seeker|Castle Scholar|SDG Hero|Light of Lucienne
+Jeff Lionhardt,100,170,7,10,GOOD_ENDING,Knowledge Seeker|Castle Scholar|SDG Hero
+Jeff Lionhardt,100,150,7,9,GOOD_ENDING,Knowledge Seeker|Castle Scholar|SDG Hero
+Jeff Lionhardt,100,160,7,10,GOOD_ENDING,Knowledge Seeker|Castle Scholar|SDG Hero
+Jeff Lionhardt,100,250,7,11,GOOD_ENDING,Knowledge Seeker|Memory Breaker|Castle Scholar|SDG Hero
+Jeff Lionhardt,100,330,7,13,GOOD_ENDING,Knowledge Seeker|Memory Breaker|Castle Scholar|SDG Hero
+Jeff Lionhardt,100,420,7,14,SECRET_ENDING,Knowledge Seeker|Memory Breaker|Castle Scholar|SDG Hero|Light of Lucienne
+Jeff Lionhardt,100,130,7,9,GOOD_ENDING,Knowledge Seeker|Castle Scholar|SDG Hero
+Jeff Lionhardt,100,220,7,11,GOOD_ENDING,Knowledge Seeker|Memory Breaker|Castle Scholar|SDG Hero
+Jeff Lionhardt,100,170,9,10,GOOD_ENDING,Knowledge Seeker|Castle Scholar|SDG Hero
+Jeff Lionhardt,100,250,9,11,GOOD_ENDING,Knowledge Seeker|Memory Breaker|Castle Scholar|SDG Hero
+Jeff Lionhardt,100,330,9,13,SECRET_ENDING,Knowledge Seeker|Memory Breaker|Castle Scholar|SDG Hero|Light of Lucienne
+Jeff Lionhardt,100,150,7,9,SECRET_ENDING,Knowledge Seeker|Castle Scholar|SDG Hero|Light of Lucienne

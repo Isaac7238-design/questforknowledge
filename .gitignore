@@ -1,0 +1,14 @@
+# Compiled output
+bin/
+dist/
+
+# JAR files
+*.jar
+
+# IDE files
+.vscode/
+*.class
+
+# OS files
+Thumbs.db
+.DS_Store

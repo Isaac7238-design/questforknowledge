@@ -3,7 +3,13 @@ package entity;
 import java.awt.Color;
 import main.GamePanel;
 
-/** NPC_Shopkeeper - opens the shop state when spoken to. */
+/**
+ * NPC_Shopkeeper - opens the shop state when spoken to.
+ *
+ * Created by: Lee Yun Zhan
+ * Tested by: Nathanael
+ * Purpose: Shop NPC that sells potions and items to the player.
+ */
 public class NPC_Shopkeeper extends Entity {
 
     public NPC_Shopkeeper(GamePanel gp) {

@@ -18,6 +18,10 @@ import java.util.Comparator;
  * Uses tempScreen + drawToTempScreen/drawToScreen pattern.
  * Entity arrays are 2D [map][index]. Entity list is Y-sorted for draw order.
  * Demonstrates: game loop, state machine, OOP, all subsystems.
+ *
+ * Created by: Aezekiel
+ * Tested by: Habib
+ * Purpose: Core game controller managing the game loop, states, and all subsystem integration.
  */
 public class GamePanel extends JPanel implements Runnable {
 
@@ -121,7 +125,6 @@ public class GamePanel extends JPanel implements Runnable {
         // gameState is set by the caller (titleState on init, playState on New Game)
         tempScreen = new BufferedImage(screenWidth, screenHeight, BufferedImage.TYPE_INT_ARGB);
         g2 = (Graphics2D) tempScreen.getGraphics();
-        g2.setRenderingHint(java.awt.RenderingHints.KEY_INTERPOLATION, java.awt.RenderingHints.VALUE_INTERPOLATION_BILINEAR);
         g2.setRenderingHint(java.awt.RenderingHints.KEY_RENDERING, java.awt.RenderingHints.VALUE_RENDER_QUALITY);
         if (fullScreenOn) setFullScreen();
     }
@@ -221,6 +224,10 @@ public class GamePanel extends JPanel implements Runnable {
             g2.translate(shakeX, shakeY);
             ui.screenShakeCounter--;
         }
+
+        // Fill background (prevents white edges beyond map)
+        g2.setColor(new Color(34, 139, 34));
+        g2.fillRect(-20, -20, screenWidth + 40, screenHeight + 40);
 
         // Tiles
         tileM.draw(g2);

@@ -1,19 +1,22 @@
 package tile;
 
-import main.GamePanel;
-import main.UtilityTool;
-
-import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.util.ArrayList;
+import javax.imageio.ImageIO;
+import main.GamePanel;
+import main.UtilityTool;
 
 /**
  * TileManager - loads tile data and draws the world map.
  * RyiSnow Blue Boy Adventure exact structure.
  * Reads tile names + collision from /maps/tiledata.txt.
  * Falls back to coloured rectangles when PNG images are missing.
+ *
+ * Created by: Aezekiel
+ * Tested by: Habib
+ * Purpose: Load tile images, read world map, and render the game world.
  */
 public class TileManager {
 
@@ -140,15 +143,7 @@ public class TileManager {
 
         g2.setColor(c);
         g2.fillRect(0, 0, ts, ts);
-        g2.setColor(c.darker());
-        g2.drawRect(0, 0, ts-1, ts-1);
 
-        // X mark for collision tiles
-        if (isBlocked) {
-            g2.setColor(new Color(0,0,0,60));
-            g2.drawLine(0, 0, ts-1, ts-1);
-            g2.drawLine(ts-1, 0, 0, ts-1);
-        }
         g2.dispose();
         return img;
     }

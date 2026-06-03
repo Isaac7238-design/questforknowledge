@@ -3,6 +3,10 @@ package quiz;
 /**
  * FillBlankQuestion - player types the missing word.
  * Demonstrates: inheritance, method overriding
+ *
+ * Created by: Nathanael
+ * Tested by: Habib
+ * Purpose: Fill-in-the-blank question type for text input answers.
  */
 public class FillBlankQuestion extends Question {
 

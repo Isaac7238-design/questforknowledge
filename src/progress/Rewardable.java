@@ -1,6 +1,12 @@
 package progress;
 
-/** Rewardable - implemented by Badge. */
+/**
+ * Rewardable - implemented by Badge.
+ *
+ * Created by: Habib
+ * Tested by: Aezekiel
+ * Purpose: Define the contract for achievement/badge rewards system.
+ */
 public interface Rewardable {
     void award();
     String getBadgeName();

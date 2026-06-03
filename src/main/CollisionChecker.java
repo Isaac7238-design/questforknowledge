@@ -5,6 +5,10 @@ import entity.Entity;
 /**
  * CollisionChecker - tile, object, and entity collision detection.
  * EXACT structure from RyiSnow Blue Boy Adventure.
+ *
+ * Created by: Aezekiel
+ * Tested by: Habib
+ * Purpose: Detect collisions between entities, tiles, and objects for movement logic.
  */
 public class CollisionChecker {
 

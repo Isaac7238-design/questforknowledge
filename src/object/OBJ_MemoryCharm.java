@@ -8,6 +8,10 @@ import main.GamePanel;
 /**
  * OBJ_MemoryCharm - gives bonus XP after the next battle.
  * Pickup-only item found in the world.
+ *
+ * Created by: Habib
+ * Tested by: Aezekiel
+ * Purpose: Pickup item that grants bonus XP reward after the next quiz battle.
  */
 public class OBJ_MemoryCharm extends Entity {
 

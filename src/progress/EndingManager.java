@@ -5,6 +5,10 @@ import java.awt.*;
 /**
  * EndingManager - determines and draws the game ending.
  * Priority: SECRET > TRUE > GOOD > NORMAL
+ *
+ * Created by: Habib
+ * Tested by: Aezekiel
+ * Purpose: Determine and render the game ending based on player choices and progress.
  */
 public class EndingManager {
 

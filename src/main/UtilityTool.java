@@ -6,6 +6,10 @@ import java.awt.image.BufferedImage;
 /**
  * UtilityTool - helper for scaling images.
  * Identical to RyiSnow Blue Boy Adventure UtilityTool.
+ *
+ * Created by: Aezekiel
+ * Tested by: Habib
+ * Purpose: Provide smooth bilinear image scaling for sprites and tiles.
  */
 public class UtilityTool {
 

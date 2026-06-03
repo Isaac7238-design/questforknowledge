@@ -12,6 +12,10 @@ import progress.Badge;
  * Player - Jeff Lionhardt, the main character.
  * Extends Entity (inheritance), implements Playable (interface).
  * Demonstrates: inheritance, interfaces, method overloading, encapsulation
+ *
+ * Created by: Aezekiel
+ * Tested by: Habib
+ * Purpose: Handle Jeff's HP, XP, level, movement, map navigation, and combine everyone's modules.
  */
 public class Player extends Entity implements Playable {
 
@@ -377,13 +381,39 @@ public class Player extends Entity implements Playable {
         if (!invincible && !gp.monster[gp.currentMap][i].dying) {
             // Only trigger battle when player PRESSES ENTER near enemy
             if (keyH.enterPressed) {
+                // Must have at least 3 scrolls before battling monsters
+                if (scrollsCompleted < 3) {
+                    gp.ui.addMessage("Collect scrolls first! Need at least 3.");
+                    keyH.enterPressed = false;
+                    return;
+                }
                 invincible = true;
                 invincibleCounter = 0;
                 gp.currentEnemyIndex = i;
-                gp.quizManager.startBattleQuiz(3);
+                // Boss gets full quiz (questions = HP), regular enemies get 3
+                int numQ = gp.monster[gp.currentMap][i].boss ? gp.monster[gp.currentMap][i].life : 3;
+                gp.quizManager.startBattleQuiz(numQ);
                 gp.gameState = gp.quizState;
                 keyH.enterPressed = false;
             }
+        }
+    }
+
+    /** Check if all Memory Fragments are defeated and award KP */
+    public void checkAllFragmentsDefeated() {
+        // Count alive non-boss monsters (indices 0-4 are Memory Fragments)
+        // A null or dying monster counts as defeated
+        int aliveCount = 0;
+        for (int i = 0; i < 5; i++) {
+            if (gp.monster[0][i] != null && gp.monster[0][i].alive && !gp.monster[0][i].dying) {
+                aliveCount++;
+            }
+        }
+        if (aliveCount == 0 && knowledgePoints < 70) {
+            int bonus = 70 - knowledgePoints;
+            knowledgePoints = 70;
+            gp.ui.showToast("All Memory Fragments defeated! KP maxed to 70! (+" + bonus + ")");
+            gp.ui.addMessage("You now have enough knowledge to enter the castle.");
         }
     }
 
@@ -410,6 +440,7 @@ public class Player extends Entity implements Playable {
             gainXP(mon.exp, "enemy defeated");
             enemiesDefeated++;
             checkBadgeConditions();
+            checkAllFragmentsDefeated();
         }
     }
 

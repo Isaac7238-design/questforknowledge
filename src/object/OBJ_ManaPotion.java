@@ -8,6 +8,10 @@ import main.GamePanel;
 /**
  * OBJ_ManaPotion - restores 3 life (1.5 hearts).
  * Stackable consumable.
+ *
+ * Created by: Habib
+ * Tested by: Aezekiel
+ * Purpose: Consumable item that restores player health during gameplay.
  */
 public class OBJ_ManaPotion extends Entity {
 

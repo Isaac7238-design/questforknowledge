@@ -4,6 +4,10 @@ package main;
  * EventHandler - zone messages and castle gate check.
  * SINGLE MAP design - no teleporting between maps.
  * Castle gate at row 12 is blocked until player meets requirements.
+ *
+ * Created by: Aezekiel
+ * Tested by: Habib
+ * Purpose: Handle zone entry messages and castle gate progression blocking.
  */
 public class EventHandler {
 
@@ -63,29 +67,22 @@ public class EventHandler {
     }
 
     private void checkCastleGate(int px, int py) {
-        // When player reaches row 12 at the road (cols 24-26), check KP
+        // Only block if gate tiles are still wall AND player tries to enter
         if (py == 12 && px >= 24 && px <= 26) {
-            boolean unlocked = gp.player.knowledgePoints >= 70
-                            || gp.player.scrollsCompleted >= 7;
-            if (unlocked) {
-                // Teleport player past the gate wall into castle (row 9)
-                gp.player.worldY = gp.tileSize * 9;
-                if (!areaShown[10]) {
-                    areaShown[10] = true;
-                    gp.player.unlockBadge("Castle Scholar");
-                    gp.ui.addMessage("The gate opens! You may enter.");
-                }
-            } else {
-                // Only show message once until player leaves the gate area
+            // Check if gate is open (Lucious already opened it)
+            if (gp.tileM.mapTileNum[0][25][12] == 6) {
+                // Gate still closed - push back
                 if (!areaShown[11]) {
                     areaShown[11] = true;
-                    gp.ui.addMessage("Castle locked! Need 70 KP or 7 Scrolls.");
+                    if (gp.player.knowledgePoints < 70 && gp.player.scrollsCompleted < 7) {
+                        gp.ui.addMessage("Need 70 KP AND 7 Scrolls. Talk to the guard.");
+                    } else {
+                        gp.ui.addMessage("Talk to the guard to enter.");
+                    }
                 }
-                // Push player back
                 gp.player.worldY = gp.tileSize * 13;
             }
         } else {
-            // Player left the gate area, allow message again
             areaShown[11] = false;
         }
     }

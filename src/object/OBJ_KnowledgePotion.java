@@ -8,6 +8,10 @@ import main.GamePanel;
 /**
  * OBJ_KnowledgePotion - gives a quiz hint (reveals correct answer once).
  * Stackable consumable item.
+ *
+ * Created by: Habib
+ * Tested by: Aezekiel
+ * Purpose: Consumable item that provides a hint during quiz battles.
  */
 public class OBJ_KnowledgePotion extends Entity {
 

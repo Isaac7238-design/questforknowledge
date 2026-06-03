@@ -7,6 +7,10 @@ import main.GamePanel;
 /**
  * OBJ_KnowledgeScroll - opens a learning page when interacted with.
  * Demonstrates: inheritance (Entity), OOP
+ *
+ * Created by: Habib
+ * Tested by: Aezekiel
+ * Purpose: World object that triggers SDG 4 learning pages when collected.
  */
 public class OBJ_KnowledgeScroll extends Entity {
 

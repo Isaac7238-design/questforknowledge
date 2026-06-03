@@ -6,6 +6,10 @@ import java.util.ArrayList;
  * GameProgress - tracks all player progress at end of game.
  * Synced from Player before saving.
  * Demonstrates: encapsulation, ArrayList
+ *
+ * Created by: Habib
+ * Tested by: Aezekiel
+ * Purpose: Track and store all player progress data for score saving and ending determination.
  */
 public class GameProgress {
 

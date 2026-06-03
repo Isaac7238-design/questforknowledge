@@ -6,6 +6,10 @@ import java.io.*;
  * ScoreStorage - saves/loads scores from scores.txt.
  * Implements Storable. Demonstrates: file handling, interfaces, exception handling.
  * Format: PlayerName,FinalScore,KnowledgePoints,ScrollsCompleted,Level,EndingType,Badges
+ *
+ * Created by: Habib
+ * Tested by: Aezekiel
+ * Purpose: Save/load score using text file with ranking and high score display.
  */
 public class ScoreStorage implements Storable {
 

@@ -3,6 +3,10 @@ package quiz;
 /**
  * MultipleChoiceQuestion - player picks A/B/C/D.
  * Demonstrates: inheritance, method overriding
+ *
+ * Created by: Nathanael
+ * Tested by: Habib
+ * Purpose: Multiple choice question type with 4 options (A/B/C/D).
  */
 public class MultipleChoiceQuestion extends Question {
 

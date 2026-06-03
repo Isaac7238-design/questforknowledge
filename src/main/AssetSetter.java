@@ -5,6 +5,10 @@ import object.*;
 
 /**
  * AssetSetter - places entities. NO world items (potions only from shop).
+ *
+ * Created by: Aezekiel
+ * Tested by: Habib
+ * Purpose: Place all NPCs, monsters, and objects at their world positions.
  */
 public class AssetSetter {
 
@@ -49,20 +53,20 @@ public class AssetSetter {
         gp.npc[0][3].worldX = gp.tileSize * 30;
         gp.npc[0][3].worldY = gp.tileSize * 22;
 
-        // LUCIOUS at castle gate (row 12, col 25) - OUTSIDE the wall, blocking approach
+        // LUCIOUS at castle gate (row 13, col 25) - in front of the wall
         gp.npc[0][5] = new NPC_Lucious(gp);
         gp.npc[0][5].worldX = gp.tileSize * 25;
-        gp.npc[0][5].worldY = gp.tileSize * 12;
+        gp.npc[0][5].worldY = gp.tileSize * 13;
 
         // KING LUIN inside castle (row 5, col 25)
         gp.npc[0][6] = new NPC_KingLuin(gp);
         gp.npc[0][6].worldX = gp.tileSize * 25;
         gp.npc[0][6].worldY = gp.tileSize * 4;
 
-        // SHEENA in secret clearing (row 7, col 6)
+        // SHEENA hidden at dead-end corner of the forest maze (row 9, col 11)
         gp.npc[0][7] = new NPC_SheenaMemory(gp);
-        gp.npc[0][7].worldX = gp.tileSize * 6;
-        gp.npc[0][7].worldY = gp.tileSize * 7;
+        gp.npc[0][7].worldX = gp.tileSize * 11;
+        gp.npc[0][7].worldY = gp.tileSize * 9;
     }
 
     public void setMonster() {
@@ -75,13 +79,11 @@ public class AssetSetter {
                 gp.monster[0][i].worldY = enemyPos[i][1] * gp.tileSize;
             }
         }
-        // BOSS SHONA inside castle (row 4, col 25) - behind King Luin
+        // BOSS SHONA inside castle (row 5, col 25) - always present until all endings achieved
         if (gp.monster[0][5] == null || !gp.monster[0][5].alive) {
-            if (!gp.player.hasDefeatedShona) {
-                gp.monster[0][5] = new BOSS_Shona(gp);
-                gp.monster[0][5].worldX = gp.tileSize * 25;
-                gp.monster[0][5].worldY = gp.tileSize * 3;
-            }
+            gp.monster[0][5] = new BOSS_Shona(gp);
+            gp.monster[0][5].worldX = gp.tileSize * 25;
+            gp.monster[0][5].worldY = gp.tileSize * 5;
         }
     }
 }

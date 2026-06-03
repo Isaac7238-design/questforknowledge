@@ -1,9 +1,15 @@
 package entity;
 
-import main.GamePanel;
 import java.awt.Color;
+import main.GamePanel;
 
-/** NPC_KingLuin - King of Lucienne. Appears near the castle. */
+/**
+ * NPC_KingLuin - King of Lucienne. Appears near the castle.
+ *
+ * Created by: Lee Yun Zhan
+ * Tested by: Nathanael
+ * Purpose: King NPC inside the castle who provides story context and ending dialogue.
+ */
 public class NPC_KingLuin extends Entity {
 
     public NPC_KingLuin(GamePanel gp) {

@@ -5,6 +5,10 @@ import java.util.ArrayList;
 /**
  * LearningManager - manages all 10 SDG 4 learning pages.
  * Implements Learnable. Demonstrates: ArrayList, interfaces, method overloading.
+ *
+ * Created by: Lee Yun Zhan
+ * Tested by: Nathanael
+ * Purpose: Prepare 10 SDG 4 learning pages/screens and manage page completion tracking.
  */
 public class LearningManager implements Learnable {
 

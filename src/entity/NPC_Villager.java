@@ -5,6 +5,10 @@ import main.GamePanel;
 
 /**
  * NPC_Villager - teaches SDG 4 ideas. Multiple instances with different dialogue.
+ *
+ * Created by: Lee Yun Zhan
+ * Tested by: Nathanael
+ * Purpose: Village NPCs that share SDG 4 knowledge through dialogue interactions.
  */
 public class NPC_Villager extends Entity {
 

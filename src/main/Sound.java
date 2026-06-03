@@ -8,6 +8,10 @@ import javax.sound.sampled.*;
  * RyiSnow Blue Boy Adventure Sound.java structure.
  * Maps sound indices to Lucienne-themed sound files.
  * All WAV files loaded from the shared res/sound/ folder.
+ *
+ * Created by: Aezekiel
+ * Tested by: Habib
+ * Purpose: Manage background music and sound effects playback.
  */
 public class Sound {
 

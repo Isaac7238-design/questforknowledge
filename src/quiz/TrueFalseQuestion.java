@@ -3,6 +3,10 @@ package quiz;
 /**
  * TrueFalseQuestion - player types True or False.
  * Demonstrates: inheritance, method overriding
+ *
+ * Created by: Nathanael
+ * Tested by: Habib
+ * Purpose: True/False question type for quiz variety.
  */
 public class TrueFalseQuestion extends Question {
 

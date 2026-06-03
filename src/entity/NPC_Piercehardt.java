@@ -6,6 +6,10 @@ import main.GamePanel;
 /**
  * NPC_Piercehardt - wise mage, tutorial NPC in Safe Area.
  * Explains the mission to Jeff Lionhardt.
+ *
+ * Created by: Lee Yun Zhan
+ * Tested by: Nathanael
+ * Purpose: Tutorial NPC that guides the player through game mechanics and mission objectives.
  */
 public class NPC_Piercehardt extends Entity {
 
