@@ -288,9 +288,18 @@ public class GamePanel extends JPanel implements Runnable {
  public void playSE(int i){ se.setFile(i); se.play(); }
 
  // Save/Load progress for Continue feature
+ String getSavePath() {
+ // Save in same directory as the running application
+ try {
+ String dir = System.getProperty("user.dir");
+ return dir + java.io.File.separator + "progress.dat";
+ } catch (Exception e) { return "progress.dat"; }
+ }
+
  public void saveProgress() {
  try {
- java.io.PrintWriter pw = new java.io.PrintWriter(new java.io.FileWriter("progress.dat"));
+ String path = getSavePath();
+ java.io.PrintWriter pw = new java.io.PrintWriter(new java.io.FileWriter(path));
  pw.println(player.knowledgePoints);
  pw.println(player.scrollsCompleted);
  pw.println(player.enemiesDefeated);
@@ -305,12 +314,19 @@ public class GamePanel extends JPanel implements Runnable {
  pw.println(player.strength);
  pw.println(player.dexterity);
  pw.close();
- } catch (Exception e) { /* silent fail */ }
+ System.out.println("[SAVE] Progress saved to: " + path);
+ } catch (Exception e) {
+ System.out.println("[SAVE] Failed: " + e.getMessage());
+ }
  }
 
  public boolean loadProgress() {
- java.io.File f = new java.io.File("progress.dat");
- if (!f.exists()) return false;
+ String path = getSavePath();
+ java.io.File f = new java.io.File(path);
+ if (!f.exists()) {
+ System.out.println("[LOAD] No save file at: " + path);
+ return false;
+ }
  try {
  java.io.BufferedReader br = new java.io.BufferedReader(new java.io.FileReader(f));
  player.knowledgePoints = Integer.parseInt(br.readLine().trim());
@@ -340,7 +356,12 @@ public class GamePanel extends JPanel implements Runnable {
  for (int i = 0; i < player.enemiesDefeated && i < 5; i++) {
  monster[0][i] = null;
  }
+ System.out.println("[LOAD] Progress loaded. KP=" + player.knowledgePoints
+ + " Scrolls=" + player.scrollsCompleted + " Pos=(" + player.worldX + "," + player.worldY + ")");
  return true;
- } catch (Exception e) { return false; }
+ } catch (Exception e) {
+ System.out.println("[LOAD] Error: " + e.getMessage());
+ return false;
+ }
  }
 }

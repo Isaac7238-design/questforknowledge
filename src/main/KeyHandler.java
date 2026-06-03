@@ -83,10 +83,10 @@ public class KeyHandler implements KeyListener {
  if (code == KeyEvent.VK_ENTER) {
  switch (gp.ui.commandNum) {
  case 0: // New Game
- gp.resetGame(true);
  gp.setupGame();
- // Delete old save so Continue won't load stale data
- new java.io.File("progress.dat").delete();
+ gp.tileM.loadMap("/maps/worldmap.txt", 0);
+ gp.player.setDefaultValues();
+ new java.io.File(gp.getSavePath()).delete();
  gp.gameState = gp.prologueState;
  gp.ui.prologueLine = 0;
  gp.ui.prologueTimer = 0;
@@ -199,9 +199,9 @@ public class KeyHandler implements KeyListener {
  switch (gp.ui.commandNum) {
  case 4: // End Game
  gp.saveProgress();
- gp.gameState = gp.titleState;
- gp.resetGame(true);
  gp.stopMusic();
+ gp.gameState = gp.titleState;
+ gp.ui.commandNum = 0;
  break;
  }
  }
