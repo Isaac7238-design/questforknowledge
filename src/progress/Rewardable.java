@@ -5,11 +5,11 @@ package progress;
  *
  * Created by: Habib
  * Tested by: Aezekiel
- * Purpose: Define the contract for achievement/badge rewards system.
+ * Desc: Define the contract for achievement/badge rewards system.
  */
 public interface Rewardable {
-    void award();
-    String getBadgeName();
-    String getDescription();
-    boolean isUnlocked();
+ void award();
+ String getBadgeName();
+ String getDescription();
+ boolean isUnlocked();
 }

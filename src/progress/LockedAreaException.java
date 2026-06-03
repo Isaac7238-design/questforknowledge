@@ -5,8 +5,8 @@ package progress;
  *
  * Created by: Habib
  * Tested by: Aezekiel
- * Purpose: Custom exception for gating progression (castle entry requires KP + scrolls).
+ * Desc: Custom exception for gating progression (castle entry requires KP + scrolls).
  */
 public class LockedAreaException extends Exception {
-    public LockedAreaException(String message) { super(message); }
+ public LockedAreaException(String message) { super(message); }
 }

@@ -1,30 +1,27 @@
 package quiz;
 
+// Author: Nathanael | Tester: Habib
 /**
  * MultipleChoiceQuestion - player picks A/B/C/D.
- * Demonstrates: inheritance, method overriding
  *
- * Created by: Nathanael
- * Tested by: Habib
- * Purpose: Multiple choice question type with 4 options (A/B/C/D).
  */
 public class MultipleChoiceQuestion extends Question {
 
-    private String[] options;
+ private String[] options;
 
-    public MultipleChoiceQuestion(String questionText, String[] options,
-                                  String correctAnswer, int points) {
-        super(questionText, correctAnswer, points);
-        this.options = options;
-    }
+ public MultipleChoiceQuestion(String questionText, String[] options,
+ String correctAnswer, int points) {
+ super(questionText, correctAnswer, points);
+ this.options = options;
+ }
 
-    @Override
-    public boolean checkAnswer(String answer) throws InvalidAnswerException {
-        if (answer == null || answer.trim().isEmpty())
-            throw new InvalidAnswerException("Answer cannot be empty.");
-        return answer.trim().equalsIgnoreCase(correctAnswer.trim());
-    }
+ @Override
+ public boolean checkAnswer(String answer) throws InvalidAnswerException {
+ if (answer == null || answer.trim().isEmpty())
+ throw new InvalidAnswerException("Answer cannot be empty.");
+ return answer.trim().equalsIgnoreCase(correctAnswer.trim());
+ }
 
-    @Override public String   getType()    { return "MC"; }
-    public        String[]    getOptions() { return options; }
+ @Override public String getType() { return "MC"; }
+ public String[] getOptions() { return options; }
 }

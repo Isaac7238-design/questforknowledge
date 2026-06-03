@@ -9,7 +9,6 @@ import javax.swing.JFrame;
  *
  * Created by: Aezekiel
  * Tested by: Habib
- * Purpose: Application entry point, creates the game window and starts the game loop.
  */
 public class Main {
 

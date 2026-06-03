@@ -5,9 +5,9 @@ package progress;
  *
  * Created by: Habib
  * Tested by: Aezekiel
- * Purpose: Define the contract for save/load score operations using text files.
+ * Desc: Define the contract for save/load score operations using text files.
  */
 public interface Storable {
-    void saveScore(GameProgress progress) throws ScoreFileException;
-    String loadScores() throws ScoreFileException;
+ void saveScore(GameProgress progress) throws ScoreFileException;
+ String loadScores() throws ScoreFileException;
 }
