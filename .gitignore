@@ -9,6 +9,9 @@ dist/
 .vscode/
 *.class
 
+# Save data
+progress.dat
+
 # OS files
 Thumbs.db
 .DS_Store

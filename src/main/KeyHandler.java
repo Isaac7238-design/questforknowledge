@@ -93,6 +93,7 @@ public class KeyHandler implements KeyListener {
  break;
  case 1: // Continue
  gp.setupGame();
+ gp.tileM.loadMap("/maps/worldmap.txt", 0);
  if (gp.loadProgress()) {
  gp.gameState = gp.playState;
  gp.playMusic(0);
