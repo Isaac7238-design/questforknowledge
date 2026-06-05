@@ -1,13 +1,5 @@
 # Compiled output
 bin/
-dist/
-
-# JAR files
-*.jar
-
-# IDE files
-.vscode/
-*.class
 
 # Save data
 progress.dat

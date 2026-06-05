@@ -305,7 +305,7 @@ public class UI {
  g2.drawString(sb.toString(), x, scrollY + 8);
  }
 
- // clean this up before submission
+ // draws the floating message log on the left
     public void drawMessage() {
  int mx = 10, my = gp.screenHeight / 2 - 60;
  g2.setFont(maruMonica.deriveFont(Font.BOLD, 15f));
