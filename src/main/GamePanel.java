@@ -337,6 +337,19 @@ public class GamePanel extends JPanel implements Runnable {
  player.dexterity = Integer.parseInt(br.readLine().trim());
  br.close();
 
+ // Make sure movement state is clean so the player isn't stuck
+ player.direction = "down";
+ player.speed = player.defaultSpeed;
+ player.collisionOn = false;
+ player.knockBack = false;
+ player.invincible = false;
+ player.attacking = false;
+ player.guarding = false;
+
+ // Spawn at the safe starting area on continue (progress/stats are kept).
+ // This avoids the player loading on top of an NPC or wall and getting stuck.
+ player.setDefaultPositions();
+
  // If player already had castle access, reopen gate
  if (player.knowledgePoints >= 70 && player.scrollsCompleted >= 7) {
  for (int r = 10; r <= 12; r++) {
