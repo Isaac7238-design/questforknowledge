@@ -41,3 +41,5 @@ Jeff Lionhardt,100,250,9,11,GOOD_ENDING,Knowledge Seeker|Memory Breaker|Castle S
 Jeff Lionhardt,100,330,9,13,SECRET_ENDING,Knowledge Seeker|Memory Breaker|Castle Scholar|SDG Hero|Light of Lucienne
 Jeff Lionhardt,100,150,7,9,SECRET_ENDING,Knowledge Seeker|Castle Scholar|SDG Hero|Light of Lucienne
 Jeff Lionhardt,100,170,9,12,GOOD_ENDING,Knowledge Seeker|Memory Breaker|Castle Scholar|SDG Hero
+Jeff Lionhardt,100,195,10,12,TRUE_ENDING,Knowledge Seeker|Scroll Master|Memory Breaker|Castle Scholar|SDG Hero|Light of Lucienne
+Jeff Lionhardt,100,275,10,14,SECRET_ENDING,Knowledge Seeker|Scroll Master|Memory Breaker|Castle Scholar|SDG Hero|Light of Lucienne
