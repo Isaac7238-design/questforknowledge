@@ -4,6 +4,9 @@ bin/
 # Save data
 progress.dat
 
+# Logs
+*.log
+
 # OS files
 Thumbs.db
 .DS_Store
